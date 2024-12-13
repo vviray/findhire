@@ -24,3 +24,15 @@ CREATE TABLE job_applications (
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (job_id) REFERENCES job_posts(id)
 );
+
+CREATE TABLE messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    sender_id INT NOT NULL, -- User who sent the message
+    receiver_id INT NOT NULL, -- User receiving the message (admin in this case)
+    message TEXT NOT NULL, -- The message content
+    response TEXT, -- The admin's response
+    sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- When the message was sent
+    responded_at TIMESTAMP NULL, -- When the admin responded
+    FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (receiver_id) REFERENCES users(id) ON DELETE CASCADE
+);
